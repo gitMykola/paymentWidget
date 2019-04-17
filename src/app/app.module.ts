@@ -1,16 +1,41 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule, Injector } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
+import { createCustomElement } from '@angular/elements';
+import { PaymentService } from './services/payment.service';
+import { InformerService } from './services/informer.service';
+import { HttpClientModule } from '@angular/common/http';
+import { PreloadImgDirective } from './directives/imgPreload.directive';
+//import { GeoLocService } from './services/geolocation.service';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PreloadImgDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    InformerService,
+    //GeoLocService,
+    PaymentService
+  ],
+  bootstrap: [],
+  entryComponents: [
+    AppComponent
+  ]
 })
-export class AppModule { }
+export class AppModule {
+constructor(private injector: Injector) { }
+  ngDoBootstrap() {
+    const widgetElement = createCustomElement(AppComponent,
+      { injector: this.injector });
+    customElements.define('pay-widget', widgetElement);
+  }
+ }

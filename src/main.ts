@@ -4,6 +4,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+import 'zone.js';
+import '@webcomponents/custom-elements';
+import 'web-animations-js';
+
 if (environment.production) {
   enableProdMode();
 }
