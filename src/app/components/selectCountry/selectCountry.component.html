@@ -1,0 +1,16 @@
+<div class="input-group country col-xs-5">
+  <span class="input-group-addon font"
+        id="basic-addon1">
+    Country
+  </span>
+  <select *ngIf="payService.country"
+          (change)="selectCountry($event)"
+          aria-describedby="basic-addon1"
+          class="form-control font">
+    <option *ngFor="let country of countries"
+            [selected]="country.code === payService.country.code"
+            class="font">
+      {{country.name}}
+    </option>
+  </select>
+</div>

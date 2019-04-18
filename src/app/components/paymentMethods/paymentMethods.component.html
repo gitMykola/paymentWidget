@@ -1,0 +1,15 @@
+<h5 class="col-xs-12 text-center font">
+  Chouse your payment method
+</h5>
+<ul>
+  <li *ngFor="let method of payService.methods"
+      (click)="payService.selectMethod(method.id)"
+      class="">
+    <a href="#"
+       class="thumbnail
+         {{payService.selectedMethod.id === method.id ? 'active' : ''}}">
+      <img preloadImg src="{{method.img_url}}" alt="{{method.name}}">
+      <p class="font">{{method.name}}</p>
+    </a>
+  </li>
+</ul>

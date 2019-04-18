@@ -1,10 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Utils } from './lib/utils';
 import { PaymentService } from './services/payment.service';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from '@angular/forms'; 
 
 @Component({
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   private paymentAmmount: number;
@@ -22,11 +28,32 @@ export class AppComponent implements OnInit {
     }
   }
   public paymentMethods: any;
+  public paymentForm: FormGroup;
   constructor(
+    private formBuilder: FormBuilder,
     public payService: PaymentService
-  ) { }
+  ) {
+  }
   ngOnInit() {
     Utils.log('Payment widget loaded...');
-    this.payService.paymentMethods('EN')
+    this.payService.init();
+    this.buildForm();
+  }
+  buildForm() {
+    this.paymentForm = this.formBuilder.group({
+      'cardHolderName': [null, [Validators.required, Validators.minLength(2),
+      Validators.maxLength(256)]],
+      'cardNumber': [null, [Validators.required, Validators.minLength(3),
+      Validators.maxLength(256)]],
+      'expDateMM': [null, [Validators.required, Validators.minLength(2),
+        Validators.maxLength(2)]],
+      'expDateYY': [null, [Validators.required, Validators.minLength(2),
+      Validators.maxLength(2)]],
+      'cvv': [null, [Validators.required, Validators.min(0),
+      Validators.max(4)]]
+    });
+  }
+  onSubmit() {
+    Utils.log('Form Subbmit!');
   }
 }

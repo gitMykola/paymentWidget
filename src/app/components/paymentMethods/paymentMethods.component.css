@@ -1,0 +1,39 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "../../../assets/css/base.css";
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+ul li {
+    margin: 10px;
+    width: 100px;
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: -webkit-baseline-middle;
+  }
+
+ul li a {
+      text-decoration: none;
+      margin: 0;
+    }
+
+ul li .active {
+      border-color: #0094ff;
+    }
+
+ul li a p {
+      margin: 0;
+      font-size: 10px;
+      color: grey;
+    }
+
+@media screen and (max-width: 360px) {
+ul li {
+    width: 100%;
+    margin: 5px 0;
+  }
+}

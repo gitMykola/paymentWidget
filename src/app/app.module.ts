@@ -5,25 +5,32 @@ import { NgModule, Injector } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { createCustomElement } from '@angular/elements';
-import { PaymentService } from './services/payment.service';
-import { InformerService } from './services/informer.service';
+import {
+  PaymentService,
+  InformerService
+} from './services';
 import { HttpClientModule } from '@angular/common/http';
 import { PreloadImgDirective } from './directives/imgPreload.directive';
-//import { GeoLocService } from './services/geolocation.service';
+import { SelectorCountryComponent } from './components/selectCountry/selectCountry.component';
+import { PaymentMethodsComponent } from './components/paymentMethods/paymentMethods.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PreloadImgDirective
+    PreloadImgDirective,
+    SelectorCountryComponent,
+    PaymentMethodsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     InformerService,
-    //GeoLocService,
     PaymentService
   ],
   bootstrap: [],
