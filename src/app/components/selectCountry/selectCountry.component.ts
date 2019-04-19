@@ -19,7 +19,7 @@ export class SelectorCountryComponent implements OnInit {
   ngOnInit() {
     const self = this;
     Countries.default.map(c => {
-      self.countries.push({ code: c.Code, name: c.Name })
+      self.countries.push({ code: c.Code, name: c.Name });
     });
   }
   selectCountry(event) {

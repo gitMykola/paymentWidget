@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit } from "@angular/core";
+import { Directive, ElementRef, OnInit } from '@angular/core';
 import {
   AnimationPlayer,
   AnimationBuilder,
@@ -10,7 +10,7 @@ import {
  * Preloaded image directive
  */
 @Directive({
-  selector: '[preloadImg]'
+  selector: '[appPreloadImg]'
 })
 export class PreloadImgDirective implements OnInit {
   private timing = '500ms cubic-bezier(0.2, 1, 0.2, 1)';
@@ -26,9 +26,9 @@ export class PreloadImgDirective implements OnInit {
     const self = this;
     const preloadAnimation: AnimationFactory = self.buildAnimation();
     self.player = preloadAnimation.create(self.el.nativeElement);
-    this.el.nativeElement.onload = function () {
+    this.el.nativeElement.onload = () => {
       self.player.play();
-    }
+    };
   }
   private buildAnimation() {
     return this.builder.build([

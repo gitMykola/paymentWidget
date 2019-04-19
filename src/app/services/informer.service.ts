@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter, OnInit, OnDestroy } from "@angular/core";
+import { Injectable, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Utils } from '../lib/utils';
 import { Info } from '../lib/paymentInterfaces';

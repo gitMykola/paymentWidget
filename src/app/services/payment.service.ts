@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -24,7 +24,7 @@ export class PaymentService {
   init() {
     const self = this;
     Countries.default.map(c => {
-      self.countries.push({ code: c.Code, name: c.Name })
+      self.countries.push({ code: c.Code, name: c.Name });
     });
     this.getCountryFromPaymentWall().subscribe((country: Country) => {
       if (!country) {
@@ -90,7 +90,7 @@ export class PaymentService {
               id: item.id,
               name: item.name,
               img_url: item.img_url
-            }
+            };
           });
         }
       })

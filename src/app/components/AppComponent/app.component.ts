@@ -7,7 +7,7 @@ import {
   Validators,
   ValidatorFn,
   AbstractControl
-} from '@angular/forms'; 
+} from '@angular/forms';
 import { Info } from '../../lib/paymentInterfaces';
 
 /*
@@ -62,17 +62,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   buildForm() {
     this.paymentForm = this.formBuilder.group({
-      'cardHolderName': [null, [Validators.required,
+      cardHolderName: [null, [Validators.required,
         this.validateValue(new RegExp(/^[a-z,\s]{1,150}$/i))]],
-      'cardNumber': [null, [Validators.required,
+      cardNumber: [null, [Validators.required,
         this.validateValue(new RegExp(/^[0-9,\s]{4,24}$/)),
         this.validateCardNumber()
       ]],
-      'expDateMM': [null, [Validators.required,
+      expDateMM: [null, [Validators.required,
         this.validateValue(new RegExp(/^1[0-2]$|^0[1-9]$|^[1-9]{1}$/))]],
-      'expDateYY': [null, [Validators.required,
+      expDateYY: [null, [Validators.required,
         this.validateValue(new RegExp(/^1[9]$|^[2-9][0-9]$/))]],
-      'cvv': [null, [Validators.required,
+      cvv: [null, [Validators.required,
         this.validateValue(new RegExp(/^[0-9]{1,6}$/))]]
     });
   }
@@ -86,37 +86,40 @@ export class AppComponent implements OnInit, OnDestroy {
   validateValue(reg: RegExp): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       return reg.test(control.value) ? null
-        : {'failure': control.value};
-    }
+        : { failure: control.value };
+    };
   }
   validateCardNumber(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       return this.validCreditCard(control.value) ? null
-        : { 'failure': control.value };
-    }
+        : { failure: control.value };
+    };
   }
   validCreditCard(val) {
-    let value = (val + '').replace(/\s/,'');
+    let value = (val + '').replace(/\s/, '');
     // accept only digits, dashes or spaces
-    if (/[^0-9-\s]+/.test(value)) return false;
+    if (/[^0-9-\s]+/.test(value)) { return false; }
 
     // The Luhn Algorithm. It's so pretty.
-    var nCheck = 0, nDigit = 0, bEven = false;
-    value = value.replace(/\D/g, "");
+    let nCheck = 0;
+    let nDigit = 0;
+    let bEven = false;
+    value = value.replace(/\D/g, '');
 
-    for (var n = value.length - 1; n >= 0; n--) {
-      var cDigit = value.charAt(n),
-        nDigit = parseInt(cDigit, 10);
+    for (let n = value.length - 1; n >= 0; n--) {
+      const cDigit = value.charAt(n);
+      nDigit = parseInt(cDigit, 10);
 
       if (bEven) {
-        if ((nDigit *= 2) > 9) nDigit -= 9;
+        nDigit *= 2;
+        if (nDigit > 9) { nDigit -= 9; }
       }
 
       nCheck += nDigit;
       bEven = !bEven;
     }
 
-    return (nCheck % 10) == 0;
+    return (nCheck % 10) === 0;
   }
   ngOnDestroy() {
     this.infoService.info.unsubscribe();
