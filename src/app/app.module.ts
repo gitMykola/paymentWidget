@@ -2,7 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, Injector } from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {
+  AppComponent,
+  PaymentMethodsComponent,
+  SelectorCountryComponent
+} from '../app/components';
 
 import { createCustomElement } from '@angular/elements';
 import {
@@ -11,8 +15,6 @@ import {
 } from './services';
 import { HttpClientModule } from '@angular/common/http';
 import { PreloadImgDirective } from './directives/imgPreload.directive';
-import { SelectorCountryComponent } from './components/selectCountry/selectCountry.component';
-import { PaymentMethodsComponent } from './components/paymentMethods/paymentMethods.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

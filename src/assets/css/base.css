@@ -9,3 +9,12 @@
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
 }
+.error {
+  color: red;
+}
+.info {
+  color: black;
+}
+.warning {
+  color: brown;
+}

@@ -1,2 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "../../../assets/css/base.css";
+
+.country {
+  min-width: 250px;
+}

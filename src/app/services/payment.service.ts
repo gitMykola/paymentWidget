@@ -5,21 +5,44 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../config';
 import { PaymentMethod, Country } from '../lib/paymentInterfaces';
 import { Utils } from '../lib/utils';
+import { InformerService } from './informer.service';
+import * as Countries from '../countryList.json';
 
+/*
+ * Main app servive to interact with PaymentWall API
+ */
 @Injectable()
 export class PaymentService {
+  private countries: Country[] = [];
   public selectedMethod: PaymentMethod;
   public methods: PaymentMethod[];
   public country: Country;
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private infoService: InformerService
   ) { }
   init() {
+    const self = this;
+    Countries.default.map(c => {
+      self.countries.push({ code: c.Code, name: c.Name })
+    });
     this.getCountryFromPaymentWall().subscribe((country: Country) => {
+      if (!country) {
+        this.infoService.setInfo({
+          type: 2,
+          message: 'Country from PaymentWall unavilabel.' +
+            '\n Set default country ' + Config.DEFAULT_COUNTRY.name
+        });
+      }
       this.country = country ? country
         : Config.DEFAULT_COUNTRY;
       this.paymentMethods(this.country.code);
     }, error => {
+      this.infoService.setInfo({
+        type: 2,
+        message: 'PaymentWall API unavilabel.' +
+          '\n Set default country ' + Config.DEFAULT_COUNTRY.name
+      });
       this.country = Config.DEFAULT_COUNTRY;
       Utils.log(error);
     });
@@ -28,10 +51,23 @@ export class PaymentService {
     this.getPaymentMethods(countryCode)
       .subscribe(data => {
         this.methods = data;
-        if (data.length) {
+        if (data.length > 0) {
           this.selectedMethod = data[0];
+        } else {
+          this.infoService.setInfo({
+            type: 1,
+            message: 'PaymentWall has no payment methods for ' +
+              this.countries.find((c: Country) => {
+              return c.code === countryCode;
+              }).name + '. There are no avialable payment methods'
+          });
         }
       }, error => {
+        this.infoService.setInfo({
+          type: 2,
+          message: 'PaymentWall service unavilabel.' +
+            ' No avialable payment methods'
+        });
         this.methods = [];
         Utils.log(error);
       });
@@ -46,13 +82,17 @@ export class PaymentService {
       + countryCode;
     return this.http.get(url).pipe(
       map((response: any) => {
-        return response.map(item => {
-          return {
-            id: item.id,
-            name: item.name,
-            img_url: item.img_url
-          }
-        });
+        if (!response.map) {
+          return [];
+        } else {
+          return response.map(item => {
+            return {
+              id: item.id,
+              name: item.name,
+              img_url: item.img_url
+            }
+          });
+        }
       })
     );
   }

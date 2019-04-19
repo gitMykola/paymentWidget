@@ -6,6 +6,9 @@ import {
   animate, style
 } from '@angular/animations';
 
+/*
+ * Preloaded image directive
+ */
 @Directive({
   selector: '[preloadImg]'
 })
@@ -19,6 +22,7 @@ export class PreloadImgDirective implements OnInit {
   }
   ngOnInit() {
     this.el.nativeElement.style.filter = 'blur(1000px)';
+    this.el.nativeElement.style.WebkitFilter = 'blur(1000px)';
     const self = this;
     const preloadAnimation: AnimationFactory = self.buildAnimation();
     self.player = preloadAnimation.create(self.el.nativeElement);
@@ -28,7 +32,7 @@ export class PreloadImgDirective implements OnInit {
   }
   private buildAnimation() {
     return this.builder.build([
-      animate(this.timing, style({ filter: 'none' }))
+      animate(this.timing, style({ filter: 'none', WebkitFilter: 'none' }))
     ]);
   }
 }

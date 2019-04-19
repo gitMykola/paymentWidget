@@ -1,0 +1,39 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "../../../assets/css/base.css";
+
+.form-group {
+  margin: 5px;
+}
+.form-group > div {
+  padding: 0;
+}
+form, form > .submit-block, form> .error-block {
+  padding-top: 20px;
+}
+.informer {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: lightblue;
+  text-align: center;
+}
+  .informer p {
+    padding: 10px;
+  }
+#expDateMM, #expDateYY {
+  display: inline-block;
+  width: 50px;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+label[for="expDateYY"] {
+  padding: 0 5px;
+}
+@media screen and (max-width: 360px) {
+  .pay-widget-wrapper .country {
+    width: 100%!important;
+  }
+}

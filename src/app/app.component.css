@@ -1,9 +1,0 @@
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "../assets/css/base.css";
-
-
-@media screen and (max-width: 360px) {
-  .pay-widget-wrapper .country {
-    width: 100%!important;
-  }
-}

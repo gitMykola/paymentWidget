@@ -1,2 +1,2 @@
-export * from './informer.service';
-export * from './payment.service';
+export { InformerService } from './informer.service';
+export { PaymentService } from './payment.service';

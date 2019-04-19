@@ -1,0 +1,133 @@
+<div class="pay-widget-wrapper container">
+  <app-country></app-country>
+  <app-method></app-method>
+  <form [formGroup]="paymentForm"
+        class="form-horizontal col-md-6 col-md-offset-2">
+    <div class="form-group">
+      <h4 class="fontBold text-center {{paymentAmmount ? '' : 'error'}}">
+        Ammount:{{' ' + (paymentAmmount || '0.00') + ' ' + (paymentCurrency || '')}}
+      </h4>
+    </div>
+    <div class="form-group">
+      <label class="fontBold col-sm-6 text-right control-label"
+             for="cardHolderName">Card holder name:</label>
+      <div class="col-sm-6">
+        <input type="text"
+               class="form-control fontBold"
+               id="cardHolder"
+               placeholder="First name Last name"
+               formControlName="cardHolderName"
+               autofocus>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="fontBold col-sm-6 text-right control-label"
+             for="cardNumber">Card Number:</label>
+      <div class="col-sm-6">
+        <input type="text"
+             class="form-control fontBold"
+             id="cardNumber"
+             formControlName="cardNumber">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="fontBold col-sm-6 text-right control-label"
+             for="expDateMM">expiration Date:</label>
+      <div class="col-sm-6">
+              <input type="text"
+             class="form-control fontBold"
+             id="expDateMM"
+             placeholder="mm"
+             formControlName="expDateMM"
+             maxlength="2">
+      <label for="expDateYY">/</label>
+      <input type="text"
+             class="form-control fontBold"
+             id="expDateYY"
+             placeholder="yy"
+             formControlName="expDateYY"
+             maxlength="2">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="fontBold col-sm-6 text-right control-label"
+             for="cvv">CVV2 (CVC):</label>
+      <div class="col-sm-6">
+              <input type="text"
+             class="form-control fontBold"
+             id="cvv"
+             placeholder=""
+             formControlName="cvv">
+      </div>
+    </div>
+    <div class="form-group submit-block">
+      <button type="submit"
+              class="btn {{paymentForm.invalid ? 'btn-default' : 'btn-info'}}
+              fontBold col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2"
+              [disabled]="paymentForm.invalid"
+              (click)="onSubmit()">
+        PAY {{' ' + (paymentAmmount || '0.00') + ' ' + (paymentCurrency || '')}}
+      </button>
+    </div>
+    <div class="form-group error-block text-center">
+      <p class="error font"
+         *ngIf="!!paymentForm.controls.cardHolderName.errors">
+        {{ !paymentForm.controls.cardHolderName.errors ? ''
+        : ((paymentForm.controls.cardHolderName.errors.required
+          && paymentForm.controls.cardHolderName.touched) ?
+          'Card holder name is reqiured!'
+          : (paymentForm.controls.cardHolderName.errors.failure ?
+            'Card holder name should be characters only!' : ''))
+        }}
+      </p>
+      <p class="error font"
+         *ngIf="!!paymentForm.controls.cardNumber.errors">
+        {{ !paymentForm.controls.cardNumber.errors ? ''
+        : ((paymentForm.controls.cardNumber.errors.required
+        && paymentForm.controls.cardNumber.touched) ?
+          'Card number is reqiured!'
+          : (paymentForm.controls.cardNumber.errors.failure ?
+            'Card number incorrect!' : ''))
+        }}    
+      </p>
+      <p class="error font"
+         *ngIf="!!paymentForm.controls.expDateMM.errors">
+        {{ !paymentForm.controls.expDateMM.errors ? ''
+        : ((paymentForm.controls.expDateMM.errors.required
+         && paymentForm.controls.expDateMM.touched) ?
+          'Month of expired date is reqiured!'
+          : (paymentForm.controls.expDateMM.errors.failure ?
+          'Mounth of expired date should be digits from 1 to 12 only!'
+            : ''))
+        }}
+      </p>
+      <p class="error font"
+         *ngIf="!!paymentForm.controls.expDateYY.errors">
+        {{ !paymentForm.controls.expDateYY.errors ? ''
+        : ((paymentForm.controls.expDateYY.errors.required
+         && paymentForm.controls.expDateYY.touched) ?
+          'Year of expired date is reqiured!'
+          : (paymentForm.controls.expDateYY.errors.failure ?
+          'Year of expired date should be 2 digits from 19 to 99 only!'
+            : ''))
+        }}
+      </p>
+      <p class="error font"
+         *ngIf="!!paymentForm.controls.cvv.errors">
+        {{ !paymentForm.controls.cvv.errors ? ''
+        : ((paymentForm.controls.cvv.errors.required
+         && paymentForm.controls.cvv.touched) ?
+          'CVV number is reqiured!'
+          : (paymentForm.controls.cvv.errors.failure ?
+            'CVV number should be digits only!' : ''))
+        }}
+      </p>  
+    </div>
+  </form>
+  <div class="fontBold informer" *ngIf="info && info.message">
+    <p class="{{ !info.type ? 'info' : (info.type === 1 ? 'warning' : 'error') }}">
+        {{ info.message }}
+      </p>
+    </div>
+</div>
+

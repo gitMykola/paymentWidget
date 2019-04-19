@@ -3,6 +3,9 @@ import { PaymentService } from '../../services';
 import { Country } from '../../lib/paymentInterfaces';
 import * as Countries from '../../../app/countryList.json';
 
+/*
+ * Country selector component
+ */
 @Component({
   selector: 'app-country',
   templateUrl: 'selectCountry.component.html',
