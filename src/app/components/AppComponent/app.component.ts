@@ -19,7 +19,7 @@ import { Info } from '../../lib/paymentInterfaces';
 })
 export class AppComponent implements OnInit, OnDestroy {
   // input ammount validation regexp
-  private inputValidator = new RegExp(/^\d{0,10}\.?\d{0,10}\s[a-z]{3,33}\b/i);
+  private inputValidator = new RegExp(/^\d{0,10}\.?\d{0,10}\s[a-z]{3,33}$/i);
   @Input('ammount')
   set ammount(ammount: string) {
     // validate input data
@@ -27,14 +27,16 @@ export class AppComponent implements OnInit, OnDestroy {
       const data = ammount.split(' ');
       this.paymentAmmount = Number((Number(data[0])).toFixed(2));
       this.paymentCurrency = data[1].toUpperCase();
+      this.infoService.setInfo({
+        type: 0,
+        message: ''
+      });
     } else {
       const err = 'Ammount should be like \'5.27 USD\'';
       Utils.log(err);
-      setTimeout(() => {
-        this.infoService.setInfo({
-          type: 2,
-          message: err
-        });
+      this.infoService.setInfo({
+        type: 2,
+        message: err
       });
     }
   }
