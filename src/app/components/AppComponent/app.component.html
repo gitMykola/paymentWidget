@@ -4,8 +4,8 @@
   <form [formGroup]="paymentForm"
         class="form-horizontal col-md-6 col-md-offset-2">
     <div class="form-group">
-      <h4 class="fontBold text-center {{paymentAmmount ? '' : 'error'}}">
-        Ammount:{{' ' + (paymentAmmount || '0.00') + ' ' + (paymentCurrency || '')}}
+      <h4 class="fontBold text-center {{paymentAmount ? '' : 'error'}}">
+        Amount:{{' ' + (paymentAmount || '0.00') + ' ' + (paymentCurrency || '')}}
       </h4>
     </div>
     <div class="form-group">
@@ -66,7 +66,7 @@
               fontBold col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2"
               [disabled]="paymentForm.invalid"
               (click)="onSubmit()">
-        PAY {{' ' + (paymentAmmount || '0.00') + ' ' + (paymentCurrency || '')}}
+        PAY {{' ' + (paymentAmount || '0.00') + ' ' + (paymentCurrency || '')}}
       </button>
     </div>
     <div class="form-group error-block text-center">

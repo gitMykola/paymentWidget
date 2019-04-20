@@ -17,11 +17,11 @@ to build the project. The build artifacts will be stored in the `dist/` director
 
 ## Hot to apply pay-widget
 
-After building just insert to your page `<pay-widget ammount="23.45 USD"></pay-widget>`
+After building just insert to your page `<pay-widget amount="23.45 USD"></pay-widget>`
 Do not forget upload to some hosting script from `dist/pay-widget/main.js` and insert
 in you page `<script src="${href_to_main.js_on_your_hosting}"></script>`
 So, to test pay-widget avialability just run in console
-`document.querySelector('pay-widget').ammount = '123.75 USD'`
+`document.querySelector('pay-widget').amount = '123.75 USD'`
 If all ok, you'll see in top of payment form your amount
 
 ## Running unit tests
